@@ -1,0 +1,46 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project: p } = Astro.props;
+---
+
+<article class="card flex flex-col p-6" aria-labelledby={`p-${p.slug}`} data-reveal>
+  <p class="eyebrow">{p.kind}</p>
+  <h3 id={`p-${p.slug}`} class="mt-2 text-lg font-semibold tracking-tight">{p.name}</h3>
+  <p class="mt-1.5 text-[15px] leading-relaxed text-pretty text-muted">{p.summary}</p>
+  <p class="mt-3 text-sm leading-relaxed text-pretty"><span class="font-medium">Problem: </span><span class="text-muted">{p.problem}</span></p>
+
+  <dl class="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+    {
+      p.results.map((r) => (
+        <div class="flex flex-col">
+          <dd class="font-mono text-xl font-medium tracking-tight tabular-nums">{r.value}</dd>
+          <dt class="text-xs leading-snug text-muted">{r.label}</dt>
+        </div>
+      ))
+    }
+  </dl>
+
+  <details class="group mt-5 border-t border-line pt-4">
+    <summary class="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-muted select-none hover:text-fg [&::-webkit-details-marker]:hidden">
+      <span class="inline-block transition-transform group-open:rotate-90" aria-hidden="true">›</span>
+      How it works
+    </summary>
+    <p class="mt-3 font-mono text-[11.5px] leading-relaxed text-muted">{p.flow.join(' → ')}</p>
+    <ul class="mt-3 space-y-2">
+      {
+        p.decisions.map((d) => (
+          <li class="relative pl-4 text-sm leading-relaxed text-pretty text-muted before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2 before:bg-line-strong">
+            {d}
+          </li>
+        ))
+      }
+    </ul>
+  </details>
+
+  <p class="mt-auto pt-4 font-mono text-[11px] text-subtle">{p.stack.join(' · ')}</p>
+</article>

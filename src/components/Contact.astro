@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+const channels = [
+  { label: 'Email', value: site.email, href: `mailto:${site.email}`, icon: 'mail', external: false },
+] as const;
+---
+
+<section id="contact" aria-labelledby="contact-title" class="border-t border-line py-14 sm:py-20">
+  <div class="container-page">
+    <p class="eyebrow"><span class="text-accent">06</span> / Contact</p>
+    <div data-reveal>
+      <h2 id="contact-title" class="mt-2 max-w-3xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
+        Hiring for backend, infrastructure or ML engineering?
+        <span class="text-muted">Let’s talk.</span>
+      </h2>
+      <p class="mt-3 max-w-xl leading-relaxed text-muted">
+        I usually reply within a day. Based in {site.location} and open to relocation.
+      </p>
+
+      <ul class="mt-6 grid max-w-md gap-px overflow-hidden rounded-xl border border-line bg-line">
+        {
+          channels.map((c) => (
+            <li class="bg-raised">
+              <a
+                href={c.href}
+                class="group flex items-center gap-4 p-5 transition-colors hover:bg-sunken"
+                {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                <span class="grid size-10 shrink-0 place-items-center rounded-lg border border-line text-muted group-hover:text-fg">
+                  <Icon name={c.icon} size={18} />
+                </span>
+                <span class="min-w-0">
+                  <span class="block text-sm font-medium">{c.label}</span>
+                  <span class="block truncate font-mono text-[13px] text-muted">{c.value}</span>
+                </span>
+                <Icon name="arrow" size={15} class="ml-auto text-subtle transition-colors group-hover:text-accent" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

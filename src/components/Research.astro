@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+import Section from './Section.astro';
+import { papers } from '../data/research';
+---
+
+<Section id="research" index="03" label="Research" title="Publications">
+  <ol class="divide-y divide-line border-y border-line">
+    {
+      papers.map((paper) => (
+        <li class="grid gap-3 py-5 sm:grid-cols-[6.5rem_1fr] sm:gap-6" data-reveal>
+          <div>
+            <span
+              class:list={[
+                'inline-flex rounded-full px-2.5 py-0.5 font-mono text-[11px]',
+                paper.status === 'Published' ? 'bg-accent-soft text-accent' : 'border border-line-strong text-muted',
+              ]}
+            >
+              {paper.status}
+            </span>
+          </div>
+          <article class="min-w-0">
+            <h3 class="leading-snug font-semibold tracking-tight text-balance">{paper.title}</h3>
+            <p class="mt-1 font-mono text-xs text-subtle">{paper.venue}</p>
+            <p class="mt-2 text-[15px] leading-relaxed text-pretty text-muted">{paper.summary}</p>
+            <ul class="mt-2 space-y-1">
+              {paper.method.map((m) => (
+                <li class="relative pl-4 text-sm leading-relaxed text-pretty text-muted before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2 before:bg-line-strong">
+                  {m}
+                </li>
+              ))}
+            </ul>
+            {paper.doi && (
+              <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noopener noreferrer" class="link mt-2 inline-flex items-center gap-1 text-sm">
+                doi:{paper.doi}
+                <Icon name="arrow" size={13} />
+              </a>
+            )}
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

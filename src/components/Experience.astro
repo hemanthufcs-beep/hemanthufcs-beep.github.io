@@ -1,0 +1,31 @@
+---
+import Section from './Section.astro';
+import { experience } from '../data/experience';
+import { emphasize } from '../lib';
+---
+
+<Section id="experience" index="01" label="Experience" title="Experience">
+  <ol class="grid gap-4 lg:grid-cols-2">
+    {
+      experience.map((role) => (
+        <li class="card flex flex-col p-6" data-reveal>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h3 class="text-lg font-semibold tracking-tight">{role.company}</h3>
+            <p class="font-mono text-xs text-subtle">{role.period}</p>
+          </div>
+          <p class="text-sm text-muted">
+            {role.title} · {role.summary}
+          </p>
+          <ul class="mt-4 space-y-2.5">
+            {role.highlights.map((h) => (
+              <li class="relative pl-4 text-[15px] leading-relaxed text-pretty text-muted before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2 before:bg-accent">
+                <Fragment set:html={emphasize(h)} />
+              </li>
+            ))}
+          </ul>
+          <p class="mt-auto pt-5 font-mono text-[11px] text-subtle">{role.stack.join(' · ')}</p>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

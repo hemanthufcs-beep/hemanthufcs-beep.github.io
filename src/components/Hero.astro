@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import { proof, site } from '../data/site';
+---
+
+<section id="top" aria-labelledby="hero-title" class="relative pt-12 pb-14 sm:pt-20 sm:pb-20">
+  <div class="container-page">
+    <p class="inline-flex items-center gap-2 rounded-full border border-line bg-raised py-1 pr-3 pl-2.5 text-xs text-muted">
+      <span class="relative flex size-2">
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-40 motion-reduce:hidden"></span>
+        <span class="relative inline-flex size-2 rounded-full bg-ok"></span>
+      </span>
+      {site.availability}
+    </p>
+
+    <h1 id="hero-title" class="mt-8 max-w-5xl text-[2.125rem] leading-[1.08] min-[400px]:text-[2.5rem] font-semibold tracking-[-0.035em] sm:text-5xl lg:text-6xl">
+      Hemanth Reddy.
+      <span class="block text-muted">Software engineer: distributed systems, performance, applied ML.</span>
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
+      Two years building and running <strong>production banking microservices at TCS</strong>. Now at the <strong>University of Florida</strong>: C++ hot paths,
+      Kafka pipelines on Kubernetes, and computer-vision research with <strong>two journal publications</strong>. M.S. Computer Science, UF (3.80 GPA).
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#projects" class="btn">View work</a>
+      <a href={`mailto:${site.email}`} class="btn">
+        <Icon name="mail" /> Email
+      </a>
+    </div>
+
+    <dl class="mt-12 grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-line lg:grid-cols-4" style="gap:1px">
+      {
+        proof.map((p) => (
+          <div class="flex flex-col gap-2 bg-raised p-4 sm:p-5">
+            <dt class="order-2 text-xs leading-snug sm:text-sm text-pretty text-muted">{p.label}</dt>
+            <dd class="order-1 flex items-baseline justify-between gap-3">
+              <span class="font-mono text-xl font-medium sm:text-2xl tracking-tight whitespace-nowrap tabular-nums">{p.value}</span>
+              <span class="eyebrow hidden sm:inline">{p.source}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
